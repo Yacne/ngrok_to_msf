@@ -5,7 +5,7 @@ def generate_commands(ngrok_output, app_name):
     # Extract LHOST and LPORT from ngrok output
     match = re.search(r"tcp://(.+):(\d+)", ngrok_output)
     if match:
-        lhost = match.group(1)
+        lhost = match.group(1).split(':')[0]  # Ignore anything after a second colon
         lport = match.group(2)
     else:
         print("Could not find LHOST and LPORT in the input text.")
@@ -67,5 +67,3 @@ if __name__ == "__main__":
             generate_commands(ngrok_output, app_name)
         elif command == "exit":
             break
-
-   
